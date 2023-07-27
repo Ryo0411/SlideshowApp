@@ -1,13 +1,8 @@
-//
-//  DetailViewController.swift
-//  SlideshowApp
-//
-//  Created by Ryo Watanabe on 2023/07/14.
-//
-
 import UIKit
 
 class DetailViewController: UIViewController {
+    weak var delegate: DetailViewControllerDelegate?
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
     var image: UIImage?
@@ -17,7 +12,13 @@ class DetailViewController: UIViewController {
         imageView.image = image
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.willDismissDetailViewController()
+    }
+
     @IBAction func backButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 }
+

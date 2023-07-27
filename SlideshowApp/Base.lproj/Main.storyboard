@@ -85,6 +85,7 @@
         <!--Detail View Controller-->
         <scene sceneID="Sis-LX-Vkn">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4c6-02-ASR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="SQQ-We-gPq" customClass="DetailViewController" customModule="SlideshowApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v2U-3W-EN1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
@@ -94,11 +95,11 @@
                                 <rect key="frame" x="0.0" y="104" width="414" height="405"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Vr-ha-L7T">
-                                <rect key="frame" x="177.5" y="701" width="59" height="35"/>
+                                <rect key="frame" x="177.5" y="150" width="59" height="586"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="戻る"/>
                                 <connections>
-                                    <action selector="backButtonTapped:" destination="SQQ-We-gPq" eventType="touchUpInside" id="ych-Yw-qjB"/>
+                                    <action selector="backButtonTapped:" destination="SQQ-We-gPq" eventType="touchUpInside" id="COe-fE-cus"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -116,11 +117,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="FrT-14-PbW"/>
                     <connections>
-                        <outlet property="backBtn" destination="7Vr-ha-L7T" id="h32-qw-qXK"/>
                         <outlet property="imageView" destination="j7J-Il-g3A" id="QaN-YW-h1Q"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4c6-02-ASR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3626.0869565217395" y="-17.410714285714285"/>
         </scene>

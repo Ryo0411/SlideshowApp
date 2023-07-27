@@ -1,23 +1,20 @@
-//
-//  ViewController.swift
-//  SlideshowApp
-//
-//  Created by Ryo Watanabe on 2023/07/14.
-//
-
 import UIKit
 
-class ViewController: UIViewController {
+protocol DetailViewControllerDelegate: AnyObject {
+    func willDismissDetailViewController()
+}
+
+class ViewController: UIViewController, DetailViewControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var startstopBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     
     var image: UIImage?
-    
     var imageNames = ["bard", "cat", "dog"]
     var currentIndex = 0
     var timer: Timer?
+    var isSlideshowStarted = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +27,17 @@ class ViewController: UIViewController {
         
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:))))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        resumeSlideShowIfNeeded()
+    }
+    
+    func resumeSlideShowIfNeeded() {
+        if timer == nil, isSlideshowStarted {
+            startSlideShow()
+        }
     }
     
     @IBAction func nextImage(_ sender: Any) {
@@ -49,14 +57,13 @@ class ViewController: UIViewController {
             nextBtn.isHidden = false
             backBtn.isHidden = false
             startstopBtn.setImage(UIImage(named: "start"), for: .normal)
-            
             stopSlideShow()
         } else {
             nextBtn.isHidden = true
             backBtn.isHidden = true
             startstopBtn.setImage(UIImage(named: "stop"), for: .normal)
-            
             startSlideShow()
+            isSlideshowStarted = true
         }
     }
     
@@ -93,6 +100,7 @@ class ViewController: UIViewController {
     @objc func imageViewTapped(_ sender: UITapGestureRecognizer) {
         if let tappedImageView = sender.view as? UIImageView {
             image = tappedImageView.image
+            stopSlideShow()
             performSegue(withIdentifier: "ShowDetail", sender: self)
         }
     }
@@ -101,6 +109,12 @@ class ViewController: UIViewController {
         if segue.identifier == "ShowDetail" {
             let resultViewController = segue.destination as? DetailViewController
             resultViewController?.image = image
+            resultViewController?.delegate = self
         }
     }
+    
+    func willDismissDetailViewController() {
+        resumeSlideShowIfNeeded()
+    }
 }
+
